@@ -1,0 +1,195 @@
+Lendsqr Assessment App Overview
+================================
+
+What this app is
+----------------
+This is a demo wallet application for the Lendsqr assessment. It has a Node/Express backend and a React/Vite frontend.
+
+The backend exposes APIs for:
+- Creating users
+- Faux login using the user ID as a bearer token
+- Viewing the current authenticated user
+- Viewing a wallet
+- Funding a wallet
+- Transferring money to another user
+- Withdrawing money
+- Listing wallet transactions
+- Checking API health through GET /health
+
+The frontend is a reviewer-friendly dashboard for testing those flows without needing Postman for every action.
+
+
+The new frontend includes:
+- A stronger hero/header area with service status badges
+- API, Database, and Adjutor status indicators
+- A richer balance card with currency, last updated time, total inflow, and total outflow
+- A session panel showing the current user name, email, user ID/token, and wallet ID
+- A copy token button for quick reviewer testing
+- A recent created users list to make transfers easier
+- Field-level validation for forms
+- Loading states on action buttons
+- Success and error toast notifications
+- A better empty transaction state
+- A fuller transaction table with Date, Type, Amount, Status, Reference, and Description
+- Color-coded transaction type badges
+- Improved responsive layout for mobile screens
+
+
+Main frontend components/sections
+---------------------------------
+1. Header / Hero
+Shows the app name, short description, and service status badges.
+
+The status badges include:
+- API: Connected or Offline
+- Database: Ready or Waiting
+- Adjutor: Configured
+
+The API and database badges are based on the GET /health endpoint. The Adjutor badge is shown as configured because the frontend does not directly call Adjutor; the backend uses Adjutor during user creation.
+
+
+2. Balance Card
+Shows the active wallet summary.
+
+It displays:
+- Wallet balance
+- Currency
+- Last updated time
+- Total inflow from FUND and TRANSFER_IN transactions
+- Total outflow from TRANSFER_OUT and WITHDRAWAL transactions
+- Active wallet badge
+
+
+3. Session Panel
+Shows the current faux-authenticated user.
+
+It displays:
+- Current user name
+- Email
+- User ID/token
+- Wallet ID
+
+The app uses the user ID as the faux bearer token. Reviewers can copy this token and use it for API testing.
+
+
+4. Create Account Form
+Creates a new user and wallet.
+
+Required fields:
+- First name
+- Last name
+- Email
+
+Optional fields:
+- Phone
+- BVN or identity
+
+After account creation, the app stores the returned token and loads that user's wallet automatically.
+
+
+5. Recent Created Users
+Keeps a small local list of recently created users in browser localStorage.
+
+This makes transfer testing easier. A reviewer can:
+- Create user A
+- Create user B
+- Load user A
+- Click "Use as recipient" on user B
+- Submit a transfer
+
+
+6. Fund Form
+Adds money to the current user's wallet.
+
+The form validates that the amount is present and greater than zero.
+
+
+7. Transfer Form
+Transfers money from the current user's wallet to another user.
+
+Required fields:
+- Recipient user ID
+- Amount
+
+Optional field:
+- Description
+
+The recent users list can fill the recipient user ID automatically.
+
+
+8. Withdraw Form
+Withdraws money from the current user's wallet.
+
+The form validates that the amount is present and greater than zero.
+
+
+9. Transactions Table
+Shows recent wallet transactions.
+
+Columns:
+- Date
+- Type
+- Amount
+- Status
+- Reference
+- Description
+
+Transaction types are color-coded:
+- FUND
+- TRANSFER_IN
+- TRANSFER_OUT
+- WITHDRAWAL
+
+If there are no transactions, the UI now shows a helpful empty state:
+"No transactions yet. Create an account, fund the wallet, then try a transfer or withdrawal."
+
+
+How to run the app
+------------------
+From the project root:
+
+1. Install dependencies:
+   npm install
+
+2. Start the backend:
+   npm run dev:backend
+
+3. Start the frontend:
+   npm run dev:frontend
+
+4. Open the frontend in the browser:
+   http://127.0.0.1:5173
+
+
+How to use the app
+------------------
+1. Create the first user with the Create Account form.
+2. Fund that user's wallet.
+3. Create a second user.
+4. Load the first user's token again if needed.
+5. In Recent Created Users, click "Use as recipient" on the second user.
+6. Enter a transfer amount and submit.
+7. Check the balance card and transaction table.
+8. Try a withdrawal and confirm it appears in the transaction table.
+
+
+Validation and feedback
+-----------------------
+The frontend now gives feedback for common reviewer actions:
+- Buttons show loading states while requests are running
+- Buttons are disabled during active requests
+- Success toasts appear after completed actions
+- Error toasts appear when API requests fail
+- Invalid fields show field-level validation messages
+
+
+Important implementation notes
+------------------------------
+- The frontend is built with React, TypeScript, Vite, and lucide-react icons.
+- The backend is built with Express and TypeScript.
+- The current auth flow is intentionally faux auth for the assessment: the user ID is used as the bearer token.
+- Recent created users are stored only in browser localStorage.
+- The health badge calls GET /health.
+- The Adjutor check happens on the backend when creating users.
+
+

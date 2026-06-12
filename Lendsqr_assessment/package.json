@@ -1,0 +1,22 @@
+{
+  "name": "lendsqr-assessment",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "install:all": "npm install",
+    "dev": "npm run dev --workspace backend",
+    "dev:backend": "npm run dev --workspace backend",
+    "dev:frontend": "npm run dev --workspace frontend",
+    "build": "npm run build --workspaces",
+    "start": "npm run start --workspace backend",
+    "migrate": "npm run migrate --workspace backend",
+    "rollback": "npm run rollback --workspace backend",
+    "seed": "npm run seed --workspace backend",
+    "test": "npm run test --workspace backend",
+    "lint": "npm run lint --workspaces",
+    "format": "npm run format --workspaces"
+  }
+}
