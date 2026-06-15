@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY src ./src
-COPY tsconfig.json knexfile.ts ./
+COPY tsconfig.json ./
 RUN npm run build
 
 FROM node:22-alpine
@@ -13,6 +13,6 @@ COPY package*.json ./
 RUN npm install --omit=dev
 COPY --from=build /app/dist ./dist
 COPY src/database/migrations ./src/database/migrations
-COPY knexfile.ts ./
+COPY src/config/knexfile.ts ./src/config/knexfile.ts
 EXPOSE 4000
 CMD ["npm", "start"]
