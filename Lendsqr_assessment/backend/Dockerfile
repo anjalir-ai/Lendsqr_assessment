@@ -2,7 +2,8 @@ FROM node:22-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
-COPY . .
+COPY src ./src
+COPY tsconfig.json knexfile.ts ./
 RUN npm run build
 
 FROM node:22-alpine
