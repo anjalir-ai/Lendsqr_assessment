@@ -9,21 +9,21 @@ const config: Record<string, Knex.Config> = {
   development: {
     client: 'mysql2',
     connection: databaseUrl,
-    migrations: { directory: './src/database/migrations', extension: 'ts' },
-    seeds: { directory: './src/database/seeds', extension: 'ts' }
+    migrations: { directory: '../database/migrations', extension: 'ts' },
+    seeds: { directory: '../database/seeds', extension: 'ts' }
   },
   production: {
     client: 'mysql2',
     connection: databaseUrl,
     pool: { min: 2, max: 10 },
-    migrations: { directory: './src/database/migrations', extension: 'ts' },
-    seeds: { directory: './src/database/seeds', extension: 'ts' }
+    migrations: { directory: '../database/migrations', extension: 'ts' },
+    seeds: { directory: '../database/seeds', extension: 'ts' }
   },
   test: {
     client: 'mysql2',
     connection: process.env.TEST_DATABASE_URL ?? databaseUrl,
-    migrations: { directory: './src/database/migrations', extension: 'ts' },
-    seeds: { directory: './src/database/seeds', extension: 'ts' }
+    migrations: { directory: '../database/migrations', extension: 'ts' },
+    seeds: { directory: '../database/seeds', extension: 'ts' }
   }
 };
 

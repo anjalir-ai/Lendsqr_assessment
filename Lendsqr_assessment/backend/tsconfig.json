@@ -11,5 +11,5 @@
     "rootDir": "src",
     "types": ["node", "vitest"]
   },
-  "include": ["src/**/*.ts", "knexfile.ts"]
+  "include": ["src/**/*.ts"]
 }
